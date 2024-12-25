@@ -8,7 +8,7 @@ public class WebPage extends JFrame  {
     private final Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
     private final JTextField printField =new JTextField(18);
 
-    WebPage() throws Exception {
+    WebPage() {
         super("https:/www.codicefiscaleonline.com/");
         setLayout(new BorderLayout());
         setBackground(Color.LIGHT_GRAY);
