@@ -11,18 +11,27 @@ public class WebPage extends JFrame  {
     WebPage() {
         super("https:/www.codicefiscaleonline.com/");
         setLayout(new BorderLayout());
-        setBackground(Color.LIGHT_GRAY);
-        sendButton.setBackground(Color.YELLOW);
-        sendButton.setBorder(border);
-        sendButton.setPreferredSize(new Dimension(40, 40));
+
+        Color background = new Color(38, 50, 56);
+        Color accent = new Color(77, 182, 172);  // teal
+        Color borderColor = new Color(0x00ACC1);
+
+        getContentPane().setBackground(background);
+        sendButton.setBackground(accent);
+        sendButton.setForeground(Color.BLACK);
+        sendButton.setFocusPainted(false);
+        sendButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        sendButton.setBorder(BorderFactory.createLineBorder(borderColor, 2));
+        sendButton.setPreferredSize(new Dimension(60, 40));
 
         printField.setEditable(false);
-        printField.setPreferredSize(new Dimension(40,70));
-        printField.setBackground(Color.LIGHT_GRAY);
-        printField.setBorder(border);
-        printField.setForeground(Color.magenta);
-        printField.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+        printField.setPreferredSize(new Dimension(40, 70));
+        printField.setBackground(background);
+        printField.setForeground(new Color(255, 202, 40));
+        printField.setBorder(BorderFactory.createLineBorder(borderColor, 2));
+        printField.setFont(new Font("SansSerif", Font.BOLD, 32));
         printField.setHorizontalAlignment(JTextField.CENTER);
+
 
         sendButton.addActionListener(_ -> {
             try {
@@ -33,6 +42,7 @@ public class WebPage extends JFrame  {
                         && (!fieldPanel.getInputCadastralCode().getText().trim().isEmpty())) {
 
                     array[0] = fieldPanel.getBg().getSelection().getActionCommand();
+                    System.out.println(array[0]);
                     array[1] = fieldPanel.getInputSurname().getText();
                     array[2] = fieldPanel.getInputName().getText();
                     array[3] = (String) fieldPanel.getYearsComboBox().getSelectedItem();
@@ -44,21 +54,24 @@ public class WebPage extends JFrame  {
                     fieldPanel.clear();
                 }
 
-            } catch (Exception x) {
+            } catch (Exception e) {
                 printField.setText("something went wrong");
+                e.printStackTrace();
             }
         });
 
-        this.add(fieldPanel, BorderLayout.CENTER);
-        this.add(sendButton, BorderLayout.PAGE_END);
-        this.add(printField,BorderLayout.PAGE_START);
-        setSize(650, 400);
+
+        add(printField, BorderLayout.PAGE_START);
+        add(fieldPanel, BorderLayout.CENTER);
+        add(sendButton, BorderLayout.PAGE_END);
+        setSize(800, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-        fieldPanel.getInputSurname().grabFocus();  //prende il focus all'inizio
+        fieldPanel.getInputSurname().grabFocus();
     }
+
 
     public static void main(String[] args) throws Exception {
         new WebPage();
